@@ -11,9 +11,7 @@ import {
   YAxis,
 } from "recharts";
 import CalculatorShell from "@/app/components/calculatorshell";
-
-const formatCurrency = (value: number) =>
-  `₹ ${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+import { useCurrency, formatCurrencyFor } from "@/app/lib/currency";
 
 export default function InflationCalculator() {
   const [currentAmount, setCurrentAmount] = useState(1000000);
@@ -37,6 +35,9 @@ export default function InflationCalculator() {
       chartData: data,
     };
   }, [currentAmount, inflationRate, years]);
+
+  const [currency] = useCurrency();
+  const formatCurrency = (value: number) => formatCurrencyFor(currency, value);
 
   return (
     <CalculatorShell title="Inflation Calculator">
@@ -97,7 +98,7 @@ export default function InflationCalculator() {
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="year" />
-              <YAxis tickFormatter={(value) => `₹${Math.round(value / 1000)}k`} />
+              <YAxis tickFormatter={(value) => formatCurrencyFor(currency, value / 1000) + "k"} />
               <Tooltip formatter={(value) => typeof value === "number" ? formatCurrency(value) : ""} />
               <Line type="monotone" dataKey="amount" stroke="#f59e0b" strokeWidth={2} dot={false} />
             </LineChart>

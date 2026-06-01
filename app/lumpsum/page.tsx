@@ -11,6 +11,7 @@ import {
   YAxis,
 } from "recharts";
 import CalculatorShell from "@/app/components/calculatorshell";
+import { useCurrency, formatCurrencyFor } from "@/app/lib/currency";
 
 export default function LumpsumCalculator() {
   const [principal, setPrincipal] = useState(100000);
@@ -46,8 +47,8 @@ export default function LumpsumCalculator() {
     };
   }, [principal, rate, years, frequency]);
 
-  const formatCurrency = (value: number) =>
-    `₹ ${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+  const [currency] = useCurrency();
+  const formatCurrency = (value: number) => formatCurrencyFor(currency, value);
 
   return (
     <CalculatorShell title="Lumpsum Calculator">
@@ -122,7 +123,7 @@ export default function LumpsumCalculator() {
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="year" />
-              <YAxis tickFormatter={(value) => `₹${Math.round(Number(value) / 1000)}k`} />
+              <YAxis tickFormatter={(value) => formatCurrencyFor(currency, Number(value) / 1000) + "k"} />
               <Tooltip formatter={(value) => typeof value === "number" ? formatCurrency(value) : ""} />
               <Line type="monotone" dataKey="amount" stroke="#10b981" strokeWidth={2} dot={false} />
             </LineChart>

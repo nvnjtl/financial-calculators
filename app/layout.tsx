@@ -1,6 +1,5 @@
 import Link from "next/link";
 import "./globals.css";
-import ThemeToggle from "@/app/components/ThemeToggle";
 
 export const metadata = {
   title: "Financial Calculators",
@@ -22,10 +21,9 @@ export default function RootLayout({
             FinCalc
           </Link>
 
-          <div className="flex gap-4 text-sm">
-            <Link href="/emi" className="text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100 transition-colors">EMI</Link>
-            <Link href="/simple-interest" className="text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100 transition-colors">Interest</Link>
-            <ThemeToggle />
+          <div className="flex gap-4 items-center text-sm">
+            <Link href="/emi" className="text-slate-700 hover:text-slate-900 transition-colors">EMI</Link>
+            <Link href="/simple-interest" className="text-slate-700 hover:text-slate-900 transition-colors">Interest</Link>
           </div>
         </nav>
 

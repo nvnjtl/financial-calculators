@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useCurrency, formatCurrencyFor } from "@/app/lib/currency";
 import CalculatorShell from "@/app/components/calculatorshell";
 import {
   LineChart,
@@ -53,8 +54,8 @@ export default function EMIPage() {
 
   const displaySchedule = schedule.slice(0, 24);
 
-  const formatCurrency = (value: number) =>
-    `₹ ${value.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+  const [currency] = useCurrency();
+  const formatCurrency = (value: number) => formatCurrencyFor(currency, value);
 
   return (
     <CalculatorShell title="EMI Calculator">
@@ -118,7 +119,7 @@ export default function EMIPage() {
               <LineChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />
-                <YAxis tickFormatter={(value) => `₹${value / 1000}k`} />
+                <YAxis tickFormatter={(value) => formatCurrencyFor(currency, value / 1000) + "k"} />
                 <Tooltip formatter={(value) => typeof value === "number" ? formatCurrency(value) : ""} />
                 <Line type="monotone" dataKey="balance" stroke="#2563eb" strokeWidth={2} dot={false} />
               </LineChart>

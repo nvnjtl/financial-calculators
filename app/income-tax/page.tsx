@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import CalculatorShell from "@/app/components/calculatorshell";
+import { useCurrency, formatCurrencyFor } from "@/app/lib/currency";
 
 const taxSlabs = {
   new: [
@@ -20,8 +21,7 @@ const taxSlabs = {
   ],
 };
 
-const formatCurrency = (value: number) =>
-  `₹ ${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+ 
 
 export default function IncomeTaxCalculator() {
   const [income, setIncome] = useState(900000);
@@ -51,6 +51,9 @@ export default function IncomeTaxCalculator() {
       effectiveRate: Number(((totalTax / income) * 100).toFixed(2)),
     };
   }, [income, regime]);
+
+  const [currency] = useCurrency();
+  const formatCurrency = (value: number) => formatCurrencyFor(currency, value);
 
   return (
     <CalculatorShell title="Income Tax Calculator">

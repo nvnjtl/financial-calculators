@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import CalculatorShell from "@/app/components/calculatorshell";
+import { useCurrency, formatCurrencyFor } from "@/app/lib/currency";
 import {
   LineChart,
   Line,
@@ -50,8 +51,8 @@ export default function SIPStepUpCalculator() {
 
   const wealthGained = futureValue - totalInvested;
 
-  const formatCurrency = (value: number) =>
-    `₹ ${value.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+  const [currency] = useCurrency();
+  const formatCurrency = (value: number) => formatCurrencyFor(currency, value);
 
   return (
     <CalculatorShell title="Step-Up SIP Calculator">
@@ -124,7 +125,7 @@ export default function SIPStepUpCalculator() {
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="year" />
-              <YAxis tickFormatter={(value) => `₹${Math.round(Number(value) / 1000)}k`} />
+              <YAxis tickFormatter={(value) => formatCurrencyFor(currency, Number(value) / 1000) + "k"} />
               <Tooltip formatter={(value) => typeof value === "number" ? formatCurrency(value) : ""} />
               <Line type="monotone" dataKey="balance" stroke="#16a34a" strokeWidth={2} dot={false} />
             </LineChart>

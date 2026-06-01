@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import CalculatorShell from "@/app/components/calculatorshell";
+import { useCurrency, formatCurrencyFor } from "@/app/lib/currency";
 import {
   LineChart,
   Line,
@@ -37,6 +38,8 @@ export default function SIPCalculator() {
   const totalInvested = monthly * months;
   const futureValue = balance;
   const wealthGained = futureValue - totalInvested;
+
+  const [currency] = useCurrency();
 
   return (
     <CalculatorShell title="SIP Calculator">
@@ -77,17 +80,17 @@ export default function SIPCalculator() {
         </div>
 
         <div className="grid gap-4">
-          <div className="calc-stat-card dark:border-slate-700 dark:bg-slate-950">
+            <div className="calc-stat-card dark:border-slate-700 dark:bg-slate-950">
             <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Total Invested</p>
-            <p className="mt-3 text-3xl font-semibold text-white dark:text-white">₹ {totalInvested.toFixed(0)}</p>
+            <p className="mt-3 text-3xl font-semibold text-white dark:text-white">{formatCurrencyFor(currency, totalInvested)}</p>
           </div>
           <div className="calc-stat-card dark:border-slate-700 dark:bg-slate-950">
             <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Wealth Gained</p>
-            <p className="mt-3 text-2xl font-semibold text-slate-900 dark:text-white">₹ {wealthGained.toFixed(0)}</p>
+            <p className="mt-3 text-2xl font-semibold text-slate-900 dark:text-white">{formatCurrencyFor(currency, wealthGained)}</p>
           </div>
           <div className="rounded-3xl border border-slate-200 bg-emerald-500/10 p-5 shadow-sm dark:border-emerald-500/20 dark:bg-emerald-500/10">
             <p className="text-sm uppercase tracking-[0.2em] text-emerald-600">Maturity Value</p>
-            <p className="mt-3 text-2xl font-semibold text-emerald-700 dark:text-emerald-200">₹ {futureValue.toFixed(0)}</p>
+            <p className="mt-3 text-2xl font-semibold text-emerald-700 dark:text-emerald-200">{formatCurrencyFor(currency, futureValue)}</p>
           </div>
         </div>
       </div>
@@ -99,8 +102,8 @@ export default function SIPCalculator() {
             <LineChart data={data}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="year" />
-              <YAxis tickFormatter={(value) => `₹ ${Number(value).toLocaleString()}`} />
-              <Tooltip formatter={(value) => `₹ ${Number(value).toLocaleString()}`} />
+              <YAxis tickFormatter={(value) => formatCurrencyFor(currency, Number(value))} />
+              <Tooltip formatter={(value) => formatCurrencyFor(currency, Number(value))} />
               <Line type="monotone" dataKey="value" stroke="#16a34a" strokeWidth={2} dot={false} />
             </LineChart>
           </ResponsiveContainer>

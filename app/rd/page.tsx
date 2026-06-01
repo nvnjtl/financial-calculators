@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import CalculatorShell from "@/app/components/calculatorshell";
-import CurrencySelect, { useCurrency } from "@/app/components/CurrencySelect";
+import { useCurrency, formatCurrencyFor } from "@/app/lib/currency";
 
 export default function RDCalculator() {
   const [monthly, setMonthly] = useState(5000);
@@ -35,26 +35,8 @@ export default function RDCalculator() {
     };
   }, [monthly, rate, years]);
 
-  const formatCurrency = (value: number) =>
-    `₹ ${value.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
-
   const [currency] = useCurrency();
-
-  const currencySymbol = (c: string) => {
-    switch (c) {
-      case "USD":
-        return "$";
-      case "EUR":
-        return "€";
-      default:
-        return "₹";
-    }
-  };
-
-  const formatCurrencyBy = (value: number) => {
-    const symbol = currencySymbol(currency);
-    return `${symbol} ${value.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
-  };
+  const formatCurrencyBy = (value: number) => formatCurrencyFor(currency, value);
 
   return (
     <CalculatorShell title="RD Calculator">
@@ -70,7 +52,7 @@ export default function RDCalculator() {
                 className="w-full calc-input"
                 placeholder="₹ Monthly Deposit"
               />
-              <span className="text-sm text-slate-600">{currencySymbol(currency)}</span>
+              <span className="text-sm text-slate-600">{formatCurrencyFor(currency, 0).replace(/0|\s|,/g, "")}</span>
             </div>
           </label>
           <label className="flex flex-col gap-3 calc-form-card dark:border-slate-700 dark:bg-slate-950">
@@ -109,9 +91,6 @@ export default function RDCalculator() {
             <p className="mt-4 text-3xl font-semibold text-teal-700">{formatCurrencyBy(maturityValue)}</p>
           </div>
         </div>
-      </div>
-      <div className="mt-4 flex items-center justify-end gap-3">
-        <CurrencySelect />
       </div>
     </CalculatorShell>
   );

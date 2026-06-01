@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import CalculatorShell from "@/app/components/calculatorshell";
+import { useCurrency, formatCurrencyFor } from "@/app/lib/currency";
 
 export default function SimpleInterestPage() {
   const [p, setP] = useState(10000);
@@ -10,6 +11,9 @@ export default function SimpleInterestPage() {
 
   const si = (p * r * t) / 100;
   const total = p + si;
+
+  const [currency] = useCurrency();
+
 
   return (
     <CalculatorShell title="Simple Interest Calculator">
@@ -52,11 +56,11 @@ export default function SimpleInterestPage() {
           <div className="mt-4 space-y-3 text-sm text-slate-900 dark:text-white">
             <div className="flex items-center justify-between rounded-3xl bg-white/90 p-4 dark:bg-white/5">
               <span>Interest</span>
-              <span className="font-semibold">₹ {si.toFixed(2)}</span>
+              <span className="font-semibold">{formatCurrencyFor(currency, si)}</span>
             </div>
             <div className="flex items-center justify-between rounded-3xl bg-white/90 p-4 dark:bg-white/5">
               <span>Total Amount (₹)</span>
-              <span className="font-semibold">₹ {total.toFixed(2)}</span>
+              <span className="font-semibold">{formatCurrencyFor(currency, total)}</span>
             </div>
           </div>
         </div>

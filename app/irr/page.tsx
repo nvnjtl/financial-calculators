@@ -11,9 +11,8 @@ import {
   YAxis,
 } from "recharts";
 import CalculatorShell from "@/app/components/calculatorshell";
+import { useCurrency, formatCurrencyFor } from "@/app/lib/currency";
 
-const formatCurrency = (value: number) =>
-  `₹ ${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
 
 function calculateIRR(cashFlows: number[]) {
   const npv = (rate: number) =>
@@ -58,6 +57,9 @@ export default function IRRCalculator() {
       totalNPV: Number(npv.toFixed(0)),
     };
   }, [investment, discountRate, cashFlows]);
+
+  const [currency] = useCurrency();
+  const formatCurrency = (value: number) => formatCurrencyFor(currency, value);
 
   const updateFlow = (index: number, value: number) => {
     const next = [...cashFlows];
@@ -122,7 +124,7 @@ export default function IRRCalculator() {
             <LineChart data={discountedCashflows}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="year" />
-              <YAxis tickFormatter={(value) => `₹${Math.round(value / 1000)}k`} />
+              <YAxis tickFormatter={(value) => formatCurrencyFor(currency, value / 1000) + "k"} />
               <Tooltip formatter={(value) => typeof value === "number" ? formatCurrency(value) : ""} />
               <Line type="monotone" dataKey="presentValue" stroke="#8b5cf6" strokeWidth={2} dot={false} />
             </LineChart>

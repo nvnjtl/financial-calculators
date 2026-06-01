@@ -11,11 +11,11 @@ import {
   YAxis,
 } from "recharts";
 import CalculatorShell from "@/app/components/calculatorshell";
-
-const formatCurrency = (value: number) =>
-  `₹ ${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+import { useCurrency, formatCurrencyFor } from "@/app/lib/currency";
 
 export default function PPFCalculator() {
+  const [currency] = useCurrency();
+  const formatCurrency = (value: number) => formatCurrencyFor(currency, value);
   const [annualDeposit, setAnnualDeposit] = useState(100000);
   const [rate, setRate] = useState(7.1);
   const [years, setYears] = useState(15);
@@ -98,7 +98,7 @@ export default function PPFCalculator() {
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="year" />
-              <YAxis tickFormatter={(value) => `₹${Math.round(value / 1000)}k`} />
+              <YAxis tickFormatter={(value) => formatCurrencyFor(currency, value / 1000) + "k"} />
               <Tooltip formatter={(value) => typeof value === "number" ? formatCurrency(value) : ""} />
               <Line type="monotone" dataKey="balance" stroke="#0ea5e9" strokeWidth={2} dot={false} />
             </LineChart>
