@@ -50,56 +50,56 @@ export default function SWPCalculator() {
     <CalculatorShell title="SWP Calculator">
       <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] mb-6">
         <div className="grid gap-4 md:grid-cols-2">
-          <label className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <span className="text-sm text-zinc-500">Starting Corpus</span>
+          <label className="flex flex-col gap-2 calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <span className="text-sm text-slate-500">Starting Corpus (₹)</span>
             <input
               type="number"
               value={corpus}
               onChange={(e) => setCorpus(+e.target.value)}
-              className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:bg-zinc-900 dark:text-white dark:border-zinc-700"
-              placeholder="Corpus"
+              className="w-full calc-input"
+              placeholder="₹ Corpus"
             />
           </label>
-          <label className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <span className="text-sm text-zinc-500">Annual Withdrawal</span>
+          <label className="flex flex-col gap-2 calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <span className="text-sm text-slate-500">Annual Withdrawal (₹)</span>
             <input
               type="number"
               value={withdrawal}
               onChange={(e) => setWithdrawal(+e.target.value)}
-              className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:bg-zinc-900 dark:text-white dark:border-zinc-700"
-              placeholder="Withdrawal"
+              className="w-full calc-input"
+              placeholder="₹ Withdrawal"
             />
           </label>
-          <label className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <span className="text-sm text-zinc-500">Annual Return</span>
+          <label className="flex flex-col gap-2 calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <span className="text-sm text-slate-500">Annual Return (%)</span>
             <input
               type="number"
               value={rate}
               onChange={(e) => setRate(+e.target.value)}
-              className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:bg-zinc-900 dark:text-white dark:border-zinc-700"
-              placeholder="Rate %"
+              className="w-full calc-input"
+              placeholder="% (e.g., 8)"
             />
           </label>
-          <label className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <span className="text-sm text-zinc-500">Withdrawal Years</span>
+          <label className="flex flex-col gap-2 calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <span className="text-sm text-slate-500">Withdrawal Years</span>
             <input
               type="number"
               value={years}
               onChange={(e) => setYears(+e.target.value)}
-              className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:bg-zinc-900 dark:text-white dark:border-zinc-700"
+              className="w-full calc-input"
               placeholder="Years"
             />
           </label>
         </div>
 
         <div className="grid gap-4">
-          <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-            <p className="text-sm uppercase tracking-[0.2em] text-zinc-500">Total Withdrawn</p>
-            <p className="mt-3 text-3xl font-semibold text-zinc-900 dark:text-white">{formatCurrency(totalWithdrawn)}</p>
+          <div className="calc-stat-card dark:border-slate-700 dark:bg-slate-950">
+            <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Total Withdrawn</p>
+            <p className="mt-3 text-3xl font-semibold text-slate-900 dark:text-white">{formatCurrency(totalWithdrawn)}</p>
           </div>
-          <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-            <p className="text-sm uppercase tracking-[0.2em] text-zinc-500">Remaining Corpus</p>
-            <p className="mt-3 text-2xl font-semibold text-zinc-900 dark:text-white">{formatCurrency(finalBalance)}</p>
+          <div className="calc-stat-card dark:border-slate-700 dark:bg-slate-950">
+            <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Remaining Corpus</p>
+            <p className="mt-3 text-2xl font-semibold text-slate-900 dark:text-white">{formatCurrency(finalBalance)}</p>
           </div>
           <div className="rounded-3xl border border-amber-200 bg-amber-500/10 p-5 shadow-sm dark:border-amber-500/20 dark:bg-amber-500/10">
             <p className="text-sm uppercase tracking-[0.2em] text-amber-700">Withdrawal Plan</p>
@@ -108,8 +108,8 @@ export default function SWPCalculator() {
         </div>
       </div>
 
-      <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-800 dark:bg-zinc-950">
-        <p className="text-sm text-zinc-500">Corpus balance through withdrawal years</p>
+      <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-950">
+        <p className="text-sm text-slate-500">Corpus balance through withdrawal years</p>
         <div className="mt-4 h-72">
           <ResponsiveContainer width="100%" height={300} minHeight={300}>
             <LineChart data={chartData}>

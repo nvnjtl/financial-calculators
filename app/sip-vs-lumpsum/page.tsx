@@ -59,76 +59,76 @@ export default function SIPvsLumpsumCalculator() {
     <CalculatorShell title="SIP vs Lumpsum">
       <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] mb-6">
         <div className="grid gap-4 md:grid-cols-3">
-          <label className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <span className="text-sm text-zinc-500">Monthly SIP</span>
+          <label className="flex flex-col gap-2 calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <span className="text-sm text-slate-500">Monthly SIP (₹)</span>
             <input
               type="number"
               value={monthly}
               onChange={(e) => setMonthly(+e.target.value)}
-              className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:bg-zinc-900 dark:text-white dark:border-zinc-700"
-              placeholder="Monthly SIP"
+              className="w-full calc-input"
+              placeholder="₹ Monthly SIP"
             />
           </label>
-          <label className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <span className="text-sm text-zinc-500">SIP Return</span>
+          <label className="flex flex-col gap-2 calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <span className="text-sm text-slate-500">SIP Return (%)</span>
             <input
               type="number"
               value={sipRate}
               onChange={(e) => setSipRate(+e.target.value)}
-              className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:bg-zinc-900 dark:text-white dark:border-zinc-700"
-              placeholder="SIP Rate %"
+              className="w-full calc-input"
+              placeholder="% (e.g., 12)"
             />
           </label>
-          <label className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <span className="text-sm text-zinc-500">Lumpsum Amount</span>
+          <label className="flex flex-col gap-2 calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <span className="text-sm text-slate-500">Lumpsum Amount (₹)</span>
             <input
               type="number"
               value={lumpsum}
               onChange={(e) => setLumpsum(+e.target.value)}
-              className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:bg-zinc-900 dark:text-white dark:border-zinc-700"
-              placeholder="Lumpsum"
+              className="w-full calc-input"
+              placeholder="₹ Lumpsum"
             />
           </label>
-          <label className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <span className="text-sm text-zinc-500">Lumpsum Return</span>
+          <label className="flex flex-col gap-2 calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <span className="text-sm text-slate-500">Lumpsum Return (%)</span>
             <input
               type="number"
               value={lumpsumRate}
               onChange={(e) => setLumpsumRate(+e.target.value)}
-              className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:bg-zinc-900 dark:text-white dark:border-zinc-700"
-              placeholder="Lumpsum Rate %"
+              className="w-full calc-input"
+              placeholder="% (e.g., 10)"
             />
           </label>
-          <label className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <span className="text-sm text-zinc-500">Investment Duration</span>
+          <label className="flex flex-col gap-2 calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <span className="text-sm text-slate-500">Investment Duration</span>
             <input
               type="number"
               value={years}
               onChange={(e) => setYears(+e.target.value)}
-              className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:bg-zinc-900 dark:text-white dark:border-zinc-700"
+              className="w-full calc-input"
               placeholder="Years"
             />
           </label>
         </div>
 
         <div className="grid gap-4">
-          <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-            <p className="text-sm uppercase tracking-[0.2em] text-zinc-500">SIP Value</p>
+          <div className="calc-stat-card dark:border-slate-700 dark:bg-slate-950">
+            <p className="text-sm uppercase tracking-[0.2em] text-slate-500">SIP Value</p>
             <p className="mt-3 text-3xl font-semibold text-emerald-700 dark:text-emerald-200">{formatCurrency(sipValue)}</p>
           </div>
-          <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-            <p className="text-sm uppercase tracking-[0.2em] text-zinc-500">Lumpsum Value</p>
+          <div className="calc-stat-card dark:border-slate-700 dark:bg-slate-950">
+            <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Lumpsum Value</p>
             <p className="mt-3 text-3xl font-semibold text-sky-700 dark:text-sky-200">{formatCurrency(lumpsumValue)}</p>
           </div>
-          <div className="rounded-3xl border border-cyan-200 bg-cyan-500/10 p-5 shadow-sm dark:border-cyan-500/20 dark:bg-cyan-500/10">
-            <p className="text-sm uppercase tracking-[0.2em] text-cyan-700">Total SIP Invested</p>
-            <p className="mt-3 text-2xl font-semibold text-cyan-700 dark:text-cyan-100">{formatCurrency(totalSipInvested)}</p>
+          <div className="calc-accent-card dark:border-teal-100">
+            <p className="text-sm uppercase tracking-[0.2em] text-teal-700">Total SIP Invested</p>
+            <p className="mt-3 text-2xl font-semibold text-teal-700 dark:text-teal-100">{formatCurrency(totalSipInvested)}</p>
           </div>
         </div>
       </div>
 
-      <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-800 dark:bg-zinc-950">
-        <p className="text-sm text-zinc-500">Growth comparison</p>
+      <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-950">
+        <p className="text-sm text-slate-500">Growth comparison</p>
         <div className="mt-4 h-72">
           <ResponsiveContainer width="100%" height={300} minHeight={300}>
             <LineChart data={chartData}>

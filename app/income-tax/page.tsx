@@ -56,26 +56,26 @@ export default function IncomeTaxCalculator() {
     <CalculatorShell title="Income Tax Calculator">
       <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] mb-6">
         <div className="grid gap-4 md:grid-cols-2">
-          <label className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <span className="text-sm text-zinc-500">Annual Income</span>
+          <label className="flex flex-col gap-2 calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <span className="text-sm text-slate-500">Annual Income</span>
             <input
               type="number"
               value={income}
               onChange={(e) => setIncome(+e.target.value)}
-              className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:bg-zinc-900 dark:text-white dark:border-zinc-700"
-              placeholder="Income"
+              className="w-full calc-input"
+              placeholder="₹ Income"
             />
           </label>
-          <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <p className="mb-3 text-sm text-zinc-500">Tax Regime</p>
+          <div className="calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <p className="mb-3 text-sm text-slate-500">Tax Regime</p>
             <div className="grid gap-3 sm:grid-cols-2">
               <button
                 type="button"
                 onClick={() => setRegime("new")}
                 className={`rounded-3xl px-4 py-3 text-sm font-semibold transition ${
                   regime === "new"
-                    ? "bg-cyan-600 text-white shadow-lg shadow-cyan-500/20"
-                    : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800"
+                    ? "bg-teal-600 text-white shadow-lg shadow-teal-500/20"
+                    : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
                 }`}
               >
                 New Regime
@@ -85,8 +85,8 @@ export default function IncomeTaxCalculator() {
                 onClick={() => setRegime("old")}
                 className={`rounded-3xl px-4 py-3 text-sm font-semibold transition ${
                   regime === "old"
-                    ? "bg-cyan-600 text-white shadow-lg shadow-cyan-500/20"
-                    : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800"
+                    ? "bg-teal-600 text-white shadow-lg shadow-teal-500/20"
+                    : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
                 }`}
               >
                 Old Regime
@@ -96,13 +96,13 @@ export default function IncomeTaxCalculator() {
         </div>
 
         <div className="grid gap-4">
-          <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-            <p className="text-sm uppercase tracking-[0.2em] text-zinc-500">Taxable Income</p>
-            <p className="mt-3 text-3xl font-semibold text-zinc-900 dark:text-white">{formatCurrency(taxableIncome)}</p>
+          <div className="calc-stat-card dark:border-slate-700 dark:bg-slate-950">
+            <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Taxable Income</p>
+            <p className="mt-3 text-3xl font-semibold text-slate-900 dark:text-white">{formatCurrency(taxableIncome)}</p>
           </div>
-          <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-            <p className="text-sm uppercase tracking-[0.2em] text-zinc-500">Total Tax Payable</p>
-            <p className="mt-3 text-2xl font-semibold text-zinc-900 dark:text-white">{formatCurrency(taxPayable)}</p>
+          <div className="calc-stat-card dark:border-slate-700 dark:bg-slate-950">
+            <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Total Tax Payable</p>
+            <p className="mt-3 text-2xl font-semibold text-slate-900 dark:text-white">{formatCurrency(taxPayable)}</p>
           </div>
           <div className="rounded-3xl border border-rose-200 bg-rose-500/10 p-5 shadow-sm dark:border-rose-500/20 dark:bg-rose-500/10">
             <p className="text-sm uppercase tracking-[0.2em] text-rose-700">Effective Rate</p>
@@ -111,8 +111,8 @@ export default function IncomeTaxCalculator() {
         </div>
       </div>
 
-      <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-5 text-sm text-zinc-600 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300">
-        <p className="font-medium text-zinc-900 dark:text-white">How this works</p>
+      <div className="rounded-3xl calc-stat-card dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300">
+        <p className="font-medium text-slate-900 dark:text-white">How this works</p>
         <p className="mt-3 leading-7">
           {regime === "new"
             ? "The new tax regime uses simplified slab rates without most exemptions. No standard deduction is applied."

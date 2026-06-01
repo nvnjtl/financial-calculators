@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import CalculatorShell from "@/app/components/calculatorshell";
+import CurrencySelect, { useCurrency } from "@/app/components/CurrencySelect";
 
 export default function RDCalculator() {
   const [monthly, setMonthly] = useState(5000);
@@ -37,56 +38,80 @@ export default function RDCalculator() {
   const formatCurrency = (value: number) =>
     `₹ ${value.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
 
+  const [currency] = useCurrency();
+
+  const currencySymbol = (c: string) => {
+    switch (c) {
+      case "USD":
+        return "$";
+      case "EUR":
+        return "€";
+      default:
+        return "₹";
+    }
+  };
+
+  const formatCurrencyBy = (value: number) => {
+    const symbol = currencySymbol(currency);
+    return `${symbol} ${value.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+  };
+
   return (
     <CalculatorShell title="RD Calculator">
       <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] mb-6">
         <div className="grid gap-4 md:grid-cols-2">
-          <label className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <span className="text-sm text-zinc-500">Monthly Deposit</span>
-            <input
-              type="number"
-              value={monthly}
-              onChange={(e) => setMonthly(+e.target.value)}
-              className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:bg-zinc-900 dark:text-white dark:border-zinc-700"
-              placeholder="Monthly Deposit"
-            />
+          <label className="flex flex-col gap-3 calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <span className="text-sm uppercase tracking-[0.24em] text-slate-500">Monthly Deposit (₹)</span>
+            <div className="flex items-center gap-2">
+              <input
+                type="number"
+                value={monthly}
+                onChange={(e) => setMonthly(+e.target.value)}
+                className="w-full calc-input"
+                placeholder="₹ Monthly Deposit"
+              />
+              <span className="text-sm text-slate-600">{currencySymbol(currency)}</span>
+            </div>
           </label>
-          <label className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <span className="text-sm text-zinc-500">Annual Rate</span>
+          <label className="flex flex-col gap-3 calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <span className="text-sm uppercase tracking-[0.24em] text-slate-400">Annual Rate</span>
             <input
               type="number"
               value={rate}
               onChange={(e) => setRate(+e.target.value)}
-              className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:bg-zinc-900 dark:text-white dark:border-zinc-700"
-              placeholder="Annual Interest Rate %"
+              className="w-full calc-input"
+              placeholder="% (e.g., 7.5)"
             />
           </label>
-          <label className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <span className="text-sm text-zinc-500">Duration</span>
+          <label className="flex flex-col gap-3 calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <span className="text-sm uppercase tracking-[0.24em] text-slate-400">Duration (Years)</span>
             <input
               type="number"
               value={years}
               onChange={(e) => setYears(+e.target.value)}
-              className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:bg-zinc-900 dark:text-white dark:border-zinc-700"
+              className="w-full calc-input"
               placeholder="Duration (Years)"
             />
           </label>
         </div>
 
         <div className="grid gap-4">
-          <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-            <p className="text-sm uppercase tracking-[0.2em] text-zinc-500">Total Invested</p>
-            <p className="mt-3 text-3xl font-semibold text-white dark:text-white">{formatCurrency(totalInvested)}</p>
+          <div className="calc-stat-card">
+            <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Total Invested</p>
+            <p className="mt-4 text-3xl font-semibold text-slate-900">{formatCurrencyBy(totalInvested)}</p>
           </div>
-          <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-            <p className="text-sm uppercase tracking-[0.2em] text-zinc-500">Interest Earned</p>
-            <p className="mt-3 text-2xl font-semibold text-zinc-900 dark:text-white">{formatCurrency(interestEarned)}</p>
+          <div className="calc-stat-card">
+            <p className="text-sm uppercase tracking-[0.24em] text-slate-500">Interest Earned</p>
+            <p className="mt-4 text-3xl font-semibold text-slate-900">{formatCurrencyBy(interestEarned)}</p>
           </div>
-          <div className="rounded-3xl border border-emerald-200 bg-emerald-500/10 p-5 shadow-sm dark:border-emerald-500/20 dark:bg-emerald-500/10">
-            <p className="text-sm uppercase tracking-[0.2em] text-emerald-700">Maturity Value</p>
-            <p className="mt-3 text-2xl font-semibold text-emerald-700 dark:text-emerald-200">{formatCurrency(maturityValue)}</p>
+          <div className="calc-accent-card">
+            <p className="text-sm uppercase tracking-[0.24em] text-teal-700">Maturity Value</p>
+            <p className="mt-4 text-3xl font-semibold text-teal-700">{formatCurrencyBy(maturityValue)}</p>
           </div>
         </div>
+      </div>
+      <div className="mt-4 flex items-center justify-end gap-3">
+        <CurrencySelect />
       </div>
     </CalculatorShell>
   );

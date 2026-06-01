@@ -50,24 +50,24 @@ export default function NPVCalculator() {
     <CalculatorShell title="NPV Calculator">
       <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] mb-6">
         <div className="grid gap-4 md:grid-cols-2">
-          <label className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <span className="text-sm text-zinc-500">Initial Investment</span>
+          <label className="flex flex-col gap-2 calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <span className="text-sm text-slate-500">Initial Investment (₹)</span>
             <input
               type="number"
               value={investment}
               onChange={(e) => setInvestment(+e.target.value)}
-              className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:bg-zinc-900 dark:text-white dark:border-zinc-700"
-              placeholder="Investment"
+              className="w-full calc-input"
+              placeholder="₹ Investment"
             />
           </label>
-          <label className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <span className="text-sm text-zinc-500">Discount Rate</span>
+          <label className="flex flex-col gap-2 calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <span className="text-sm text-slate-500">Discount Rate (%)</span>
             <input
               type="number"
               value={discountRate}
               onChange={(e) => setDiscountRate(+e.target.value)}
-              className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:bg-zinc-900 dark:text-white dark:border-zinc-700"
-              placeholder="Discount Rate %"
+              className="w-full calc-input"
+              placeholder="% (e.g., 10)"
             />
           </label>
         </div>
@@ -82,25 +82,25 @@ export default function NPVCalculator() {
       </div>
 
       <div className="grid gap-4">
-        <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-          <p className="mb-4 text-sm text-zinc-500">Cash flows</p>
+        <div className="calc-form-card dark:border-slate-700 dark:bg-slate-950">
+          <p className="mb-4 text-sm text-slate-500">Cash flows</p>
           <div className="grid gap-3">
             {cashFlows.map((value, index) => (
-              <label key={index} className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
-                <span className="text-sm text-zinc-500">Year {index + 1}</span>
+              <label key={index} className="flex flex-col gap-2 calc-form-card">
+                <span className="text-sm text-slate-500">Year {index + 1}</span>
                 <input
                   type="number"
                   value={value}
                   onChange={(e) => updateCashFlow(index, +e.target.value)}
-                  className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white"
+                  className="w-full calc-input"
                 />
               </label>
             ))}
           </div>
         </div>
 
-        <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-800 dark:bg-zinc-950">
-          <p className="text-sm text-zinc-500">Discounted cash flow profile</p>
+        <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-950">
+          <p className="text-sm text-slate-500">Discounted cash flow profile</p>
           <div className="mt-4 h-72">
             <ResponsiveContainer width="100%" height={300} minHeight={300}>
               <LineChart data={chartData}>

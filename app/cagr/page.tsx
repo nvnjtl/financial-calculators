@@ -42,52 +42,52 @@ export default function CAGRCalculator() {
     <CalculatorShell title="CAGR Calculator">
       <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] mb-6">
         <div className="grid gap-4 md:grid-cols-3">
-          <label className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <span className="text-sm text-zinc-500">Initial Value</span>
+          <label className="flex flex-col gap-2 calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <span className="text-sm text-slate-500">Initial Value</span>
             <input
               type="number"
               value={initialValue}
               onChange={(e) => setInitialValue(+e.target.value)}
-              className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:bg-zinc-900 dark:text-white dark:border-zinc-700"
+              className="w-full calc-input"
               placeholder="Initial Value"
             />
           </label>
-          <label className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <span className="text-sm text-zinc-500">Final Value</span>
+          <label className="flex flex-col gap-2 calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <span className="text-sm text-slate-500">Final Value (₹)</span>
             <input
               type="number"
               value={finalValue}
               onChange={(e) => setFinalValue(+e.target.value)}
-              className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:bg-zinc-900 dark:text-white dark:border-zinc-700"
-              placeholder="Final Value"
+              className="w-full calc-input"
+              placeholder="₹ Final Value"
             />
           </label>
-          <label className="flex flex-col gap-2 rounded-3xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-950">
-            <span className="text-sm text-zinc-500">Time Period</span>
+          <label className="flex flex-col gap-2 calc-form-card dark:border-slate-700 dark:bg-slate-950">
+            <span className="text-sm text-slate-500">Time Period</span>
             <input
               type="number"
               value={years}
               onChange={(e) => setYears(+e.target.value)}
-              className="w-full rounded-3xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 dark:bg-zinc-900 dark:text-white dark:border-zinc-700"
+              className="w-full calc-input"
               placeholder="Years"
             />
           </label>
         </div>
 
         <div className="grid gap-4">
-          <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-            <p className="text-sm uppercase tracking-[0.2em] text-zinc-500">CAGR</p>
-            <p className="mt-3 text-3xl font-semibold text-zinc-900 dark:text-white">{cagr}%</p>
+          <div className="calc-stat-card dark:border-slate-700 dark:bg-slate-950">
+            <p className="text-sm uppercase tracking-[0.2em] text-slate-500">CAGR</p>
+            <p className="mt-3 text-3xl font-semibold text-slate-900 dark:text-white">{cagr}%</p>
           </div>
-          <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-5 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-            <p className="text-sm uppercase tracking-[0.2em] text-zinc-500">Total Return</p>
-            <p className="mt-3 text-2xl font-semibold text-zinc-900 dark:text-white">{totalReturn}%</p>
+          <div className="calc-stat-card dark:border-slate-700 dark:bg-slate-950">
+            <p className="text-sm uppercase tracking-[0.2em] text-slate-500">Total Return</p>
+            <p className="mt-3 text-2xl font-semibold text-slate-900 dark:text-white">{totalReturn}%</p>
           </div>
         </div>
       </div>
 
-      <div className="rounded-3xl border border-zinc-200 bg-zinc-50 p-5 dark:border-zinc-800 dark:bg-zinc-950">
-        <p className="text-sm text-zinc-500">Growth projection</p>
+      <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-950">
+        <p className="text-sm text-slate-500">Growth projection</p>
         <div className="mt-4 h-72">
           <ResponsiveContainer width="100%" height={300} minHeight={300}>
             <LineChart data={chartData}>
