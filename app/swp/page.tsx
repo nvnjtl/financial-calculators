@@ -11,6 +11,7 @@ import {
   YAxis,
 } from "recharts";
 import CalculatorShell from "@/app/components/calculatorshell";
+import { useCurrency, formatCurrencyFor } from "@/app/lib/currency";
 
 export default function SWPCalculator() {
   const [corpus, setCorpus] = useState(1000000);
@@ -43,8 +44,8 @@ export default function SWPCalculator() {
     };
   }, [corpus, withdrawal, rate, years]);
 
-  const formatCurrency = (value: number) =>
-    `₹ ${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+  const [currency] = useCurrency();
+  const formatCurrency = (value: number) => formatCurrencyFor(currency, value);
 
   return (
     <CalculatorShell title="SWP Calculator">
@@ -115,7 +116,7 @@ export default function SWPCalculator() {
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="year" />
-              <YAxis tickFormatter={(value) => `₹${Math.round(Number(value) / 1000)}k`} />
+              <YAxis tickFormatter={(value) => formatCurrencyFor(currency, Number(value) / 1000) + "k"} />
               <Tooltip formatter={(value) => typeof value === "number" ? formatCurrency(value) : ""} />
               <Line type="monotone" dataKey="balance" stroke="#f59e0b" strokeWidth={2} dot={false} />
             </LineChart>

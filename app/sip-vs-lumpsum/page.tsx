@@ -11,11 +11,11 @@ import {
   YAxis,
 } from "recharts";
 import CalculatorShell from "@/app/components/calculatorshell";
-
-const formatCurrency = (value: number) =>
-  `₹ ${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+import { useCurrency, formatCurrencyFor } from "@/app/lib/currency";
 
 export default function SIPvsLumpsumCalculator() {
+  const [currency] = useCurrency();
+  const formatCurrency = (value: number) => formatCurrencyFor(currency, value);
   const [monthly, setMonthly] = useState(10000);
   const [sipRate, setSipRate] = useState(10);
   const [lumpsum, setLumpsum] = useState(500000);
@@ -134,7 +134,7 @@ export default function SIPvsLumpsumCalculator() {
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="year" />
-              <YAxis tickFormatter={(value) => `₹${Math.round(value / 1000)}k`} />
+              <YAxis tickFormatter={(value) => formatCurrencyFor(currency, value / 1000) + "k"} />
               <Tooltip formatter={(value) => typeof value === "number" ? formatCurrency(value) : ""} />
               <Line type="monotone" dataKey="sip" stroke="#10b981" strokeWidth={2} dot={false} />
               <Line type="monotone" dataKey="lumpsum" stroke="#3b82f6" strokeWidth={2} dot={false} />

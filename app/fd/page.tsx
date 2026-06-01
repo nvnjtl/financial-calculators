@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import CalculatorShell from "@/app/components/calculatorshell";
+import { useCurrency, formatCurrencyFor } from "@/app/lib/currency";
 
 const frequencies = [
   { label: "Annually", value: "annually", periods: 1 },
@@ -30,8 +31,8 @@ export default function FDCalculator() {
     };
   }, [principal, rate, years, selectedFrequency]);
 
-  const formatCurrency = (value: number) =>
-    `₹ ${value.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+  const [currency] = useCurrency();
+  const formatCurrency = (value: number) => formatCurrencyFor(currency, value);
 
   return (
     <CalculatorShell title="FD Calculator">

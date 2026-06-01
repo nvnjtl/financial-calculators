@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import CalculatorShell from "@/app/components/calculatorshell";
+import { useCurrency, formatCurrencyFor } from "@/app/lib/currency";
 
 const rates = [3, 5, 12, 18, 28];
 
@@ -30,8 +31,8 @@ export default function GSTCalculator() {
     };
   }, [amount, rate, mode]);
 
-  const formatCurrency = (value: number) =>
-    `₹ ${value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+  const [currency] = useCurrency();
+  const formatCurrency = (value: number) => formatCurrencyFor(currency, Number(value));
 
   return (
     <CalculatorShell title="GST Calculator">
@@ -101,11 +102,11 @@ export default function GSTCalculator() {
               <span className="font-semibold">{formatCurrency(gstAmount)}</span>
             </div>
             <div className="flex items-center justify-between rounded-2xl bg-white/80 p-4 dark:bg-white/5">
-              <span>Base Amount (₹)</span>
+              <span>Base Amount</span>
               <span className="font-semibold">{formatCurrency(baseAmount)}</span>
             </div>
             <div className="flex items-center justify-between rounded-2xl bg-teal-600 p-4 text-white shadow-lg shadow-teal-500/20">
-              <span>Total Amount (₹)</span>
+              <span>Total Amount</span>
               <span className="font-semibold">{formatCurrency(total)}</span>
             </div>
           </div>

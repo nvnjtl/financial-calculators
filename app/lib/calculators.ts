@@ -42,6 +42,13 @@ export const calculators = [
     path: "/gst",
   },
   {
+    id: "maths",
+    title: "Calculator",
+    description: "A clean calculator for quick math operations",
+    category: "Tools",
+    path: "/maths",
+  },
+  {
     id: "simple-interest",
     title: "Simple Interest",
     description: "Calculate simple interest easily",
@@ -61,13 +68,6 @@ export const calculators = [
     description: "Simulate systematic withdrawals from a corpus",
     category: "Cashflow",
     path: "/swp",
-  },
-  {
-    id: "income-tax",
-    title: "Income Tax Calculator",
-    description: "Estimate annual income tax under new or old regimes",
-    category: "Tax",
-    path: "/income-tax",
   },
   {
     id: "retirement",

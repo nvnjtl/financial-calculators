@@ -11,14 +11,15 @@ import {
   YAxis,
 } from "recharts";
 import CalculatorShell from "@/app/components/calculatorshell";
-
-const formatCurrency = (value: number) =>
-  `₹ ${value.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+import { useCurrency, formatCurrencyFor } from "@/app/lib/currency";
 
 export default function CAGRCalculator() {
   const [initialValue, setInitialValue] = useState(10000);
   const [finalValue, setFinalValue] = useState(25000);
   const [years, setYears] = useState(5);
+
+  const [currency] = useCurrency();
+  const formatCurrency = (value: number) => formatCurrencyFor(currency, value);
 
   const { cagr, totalReturn, chartData } = useMemo(() => {
     const growth = initialValue > 0 && years > 0 ? finalValue / initialValue : 0;
@@ -93,7 +94,7 @@ export default function CAGRCalculator() {
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="year" />
-              <YAxis tickFormatter={(value) => `₹${Math.round(value / 1000)}k`} />
+              <YAxis tickFormatter={(value) => formatCurrencyFor(currency, value / 1000) + "k"} />
               <Tooltip formatter={(value) => typeof value === "number" ? formatCurrency(value) : ""} />
               <Line type="monotone" dataKey="value" stroke="#6366f1" strokeWidth={2} dot={false} />
             </LineChart>
